@@ -18,6 +18,7 @@
 
 package it.eng.knowage.backendservices.rest.widgets;
 
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -25,7 +26,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import org.apache.commons.codec.binary.Base64;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -75,7 +75,7 @@ public abstract class MLEngineUtils {
 	static JSONObject getWidgetConfFromTemplate(String base64template, String widgetId) {
 		JSONObject templateJson;
 		try {
-			byte[] decodedBytes = Base64.decodeBase64(base64template);
+			byte[] decodedBytes = Base64.getDecoder().decode(base64template);
 			templateJson = new JSONObject(new String(decodedBytes, "UTF-8"));
 			JSONArray sheets = (JSONArray) templateJson.get("sheets");
 			for (int i = 0; i < sheets.length(); i++) {

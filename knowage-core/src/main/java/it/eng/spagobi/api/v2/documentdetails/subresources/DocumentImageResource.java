@@ -3,6 +3,7 @@ package it.eng.spagobi.api.v2.documentdetails.subresources;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Base64;
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,8 +25,6 @@ import org.apache.clerezza.jaxrs.utils.form.ParameterValue;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-
-import com.hazelcast.util.Base64;
 
 import it.eng.spago.error.EMFErrorSeverity;
 import it.eng.spago.error.EMFInternalError;
@@ -100,7 +99,7 @@ public class DocumentImageResource extends AbstractSpagoBIResource {
 				}
 
 				byte[] previewBytes = Files.readAllBytes(previewFile.toPath());
-				String encodedfile = new String(Base64.encode(previewBytes), "UTF-8");
+				String encodedfile = new String(Base64.getEncoder().encode(previewBytes), "UTF-8");
 				try {
 					rb = Response.ok(encodedfile);
 				} catch (Exception e) {

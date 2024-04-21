@@ -1537,7 +1537,7 @@ public abstract class AbstractFormatExporter {
 			// load the picture
 		    String encodingPrefix = "base64,";
 		    int contentStartIndex = imageB64.indexOf(encodingPrefix) + encodingPrefix.length();
-		    byte[] bytes = org.apache.commons.codec.binary.Base64.decodeBase64(imageB64.substring(contentStartIndex));			
+		    byte[] bytes = java.util.Base64.getDecoder().decode(imageB64.substring(contentStartIndex));			
 			int pictureIdx = wb.addPicture(bytes, pictureType);
 
 			// create an anchor with upper left cell startCol/startRow

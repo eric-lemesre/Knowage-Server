@@ -20,6 +20,7 @@ package it.eng.spagobi.engine.chart.api.page;
 import static it.eng.spagobi.commons.constants.ConfigurationConstants.SPAGOBI_SPAGOBI_SERVICE_JNDI;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -35,7 +36,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
-import org.apache.axis.encoding.Base64;
 import org.apache.log4j.Logger;
 import org.jboss.resteasy.plugins.providers.html.View;
 import org.json.JSONArray;
@@ -246,7 +246,7 @@ public class PageResource extends AbstractChartEngineResource {
 
 	private RenderOptions getRenderOptionsForPdfExporter(HttpServletRequest request) throws UnsupportedEncodingException {
 		String userId = (String) getUserProfile().getUserUniqueIdentifier();
-		String encodedUserId = Base64.encode(userId.getBytes("UTF-8"));
+		String encodedUserId = Base64.getEncoder().encodeToString(userId.getBytes("UTF-8"));
 		Map<String, String> headers = new HashMap<String, String>(1);
 		headers.put("Authorization", "Direct " + encodedUserId);
 

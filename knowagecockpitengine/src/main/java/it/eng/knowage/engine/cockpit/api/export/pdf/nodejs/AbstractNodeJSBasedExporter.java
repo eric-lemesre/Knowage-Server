@@ -34,13 +34,13 @@ import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.StandardOpenOption;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Base64;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.core.UriBuilder;
 
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
@@ -262,7 +262,7 @@ public abstract class AbstractNodeJSBasedExporter {
 		int sheetHeight = getSheetHeight();
 		double deviceScaleFactor = getDeviceScaleFactor(document);
 		boolean isMultiSheet = getIsMultiSheet(document);
-		String encodedUserId = Base64.encodeBase64String(userId.getBytes(UTF_8));
+		String encodedUserId = Base64.getEncoder().encodeToString(userId.getBytes(UTF_8));
 		LOGGER.debug("Encoded User Id: " + encodedUserId);
 
 		// @formatter:off

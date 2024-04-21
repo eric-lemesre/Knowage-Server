@@ -26,6 +26,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -37,7 +38,6 @@ import java.util.regex.Pattern;
 
 import javax.ws.rs.core.UriBuilder;
 
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -139,7 +139,7 @@ public class ExcelExporter extends AbstractFormatExporter {
 		try {
 			final Path outputDir = Files.createTempDirectory("knowage-xls-exporter-");
 
-			String encodedUserId = Base64.encodeBase64String(userUniqueIdentifier.getBytes("UTF-8"));
+			String encodedUserId = Base64.getEncoder().encodeToString(userUniqueIdentifier.getBytes("UTF-8"));
 
 			// Script
 			String cockpitExportScriptPath = SingletonConfig.getInstance().getConfigValue(CONFIG_NAME_FOR_EXPORT_SCRIPT_PATH);

@@ -25,6 +25,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
+import java.util.Base64;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -44,7 +45,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.apache.axis.encoding.Base64;
 import org.apache.log4j.Logger;
 import org.jboss.resteasy.plugins.providers.html.View;
 import org.json.JSONArray;
@@ -375,7 +375,7 @@ public class PageResource extends AbstractCockpitEngineResource {
 	private RenderOptions getRenderOptionsForPdfExporter(HttpServletRequest request)
 			throws UnsupportedEncodingException {
 		String userId = (String) getUserProfile().getUserUniqueIdentifier();
-		String encodedUserId = Base64.encode(userId.getBytes("UTF-8"));
+		String encodedUserId = Base64.getEncoder().encodeToString(userId.getBytes("UTF-8"));
 		Map<String, String> headers = new HashMap<>(1);
 		headers.put("Authorization", "Direct " + encodedUserId);
 

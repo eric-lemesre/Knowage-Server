@@ -17,12 +17,12 @@
  */
 package it.eng.spagobi.services.rest;
 
+import java.util.Base64;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 
-import org.apache.axis.encoding.Base64;
 import org.apache.log4j.Logger;
 
 import it.eng.spago.security.IEngUserProfile;
@@ -62,7 +62,7 @@ public class ExternalEngineSecurityServerInterceptor extends AbstractSecuritySer
 				int position = auto.indexOf("Direct");
 				if (position > -1 && position < 5) {// Direct stay at the beginning of the header
 					String encodedUser = auto.replaceFirst("Direct ", "");
-					byte[] decodedBytes = Base64.decode(encodedUser);
+					byte[] decodedBytes = Base64.getDecoder().decode(encodedUser);
 					String userId = new String(decodedBytes, "UTF-8");
 					SecurityServiceProxy proxy = new SecurityServiceProxy(userId, servletRequest.getSession());
 					profile = (UserProfile) proxy.getUserProfile();

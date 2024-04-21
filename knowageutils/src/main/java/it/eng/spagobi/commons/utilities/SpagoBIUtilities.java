@@ -25,6 +25,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Base64;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -35,7 +36,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.log4j.Logger;
@@ -730,7 +730,7 @@ public class SpagoBIUtilities {
 			bos = new ByteArrayOutputStream();
 			ImageIO.write(image, type, bos);
 			byte[] imageBytes = bos.toByteArray();
-			encodedImage = Base64.encodeBase64String(imageBytes);
+			encodedImage = Base64.getEncoder().encodeToString(imageBytes);
 		} finally {
 			if (bos != null) {
 				bos.close();
